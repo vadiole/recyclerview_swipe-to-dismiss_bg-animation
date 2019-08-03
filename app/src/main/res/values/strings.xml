@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Recycler View</string>
+    <string name="snack_bar_text">Набор удалён</string>
+    <string name="snack_bar_undo">UNDO</string>
+</resources>
