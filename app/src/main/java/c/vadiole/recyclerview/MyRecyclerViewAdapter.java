@@ -1,5 +1,7 @@
 package c.vadiole.recyclerview;
 import android.content.Context;
+
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,30 +20,27 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
-    private Context context;
     private View root;
 
     private Nabor  mRecentlyDeletedItem;
     private int mRecentlyDeletedItemPosition;
 
-    // data is passed into the constructor
     MyRecyclerViewAdapter(Context context, ArrayList<Nabor> data, View root) {
         this.mInflater = LayoutInflater.from(context);
         this.mListItems = data;
-        this.context = context;
         this.root = root;
     }
 
-    // inflates the row layout from xml when needed
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recyclerview_row, parent, false);
         return new ViewHolder(view);
     }
 
     // binds the data to the TextView in each row
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Nabor myNabor = mListItems.get(position);
 
         String name = myNabor.getName();
@@ -52,13 +51,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         holder.myPersonTextView.setText(String.valueOf(person));
         holder.myPriceTextView.setText(String.valueOf(price));
     }
-
     // total number of rows
     @Override
     public int getItemCount() {
         return mListItems.size();
     }
-
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -68,15 +65,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         CardView myCardView;
 
         ViewHolder(View itemView) {
-
             super(itemView);
+            myCardView = itemView.findViewById(R.id.cardView);
             myNameTextView = itemView.findViewById(R.id.nameTextView);
             myPersonTextView = itemView.findViewById(R.id.personTextView);
             myPriceTextView = itemView.findViewById(R.id.pricePerPersonTextView);
-
-
-            myCardView = itemView.findViewById(R.id.cardView);
-
 
             itemView.setOnClickListener(this);
         }
@@ -97,10 +90,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         this.mClickListener = itemClickListener;
     }
 
-
-
-
-
     private void showUndoSnackbar(View root) {
         View view = root.findViewById(R.id.recyclerview);
         Snackbar snackbar = Snackbar
@@ -112,7 +101,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private void undoDelete() {
         mListItems.add(mRecentlyDeletedItemPosition, mRecentlyDeletedItem);
         notifyItemInserted(mRecentlyDeletedItemPosition);
+    }
 
+    private void onItemAdd(Nabor nabor) {
+        mListItems.add(1, nabor);
+        notifyItemInserted(1);
     }
 
     // parent activity will implement this method to respond to click events
@@ -143,6 +136,5 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         }
         notifyItemMoved(fromPosition, toPosition);
     }
-
 }
 

@@ -2,4 +2,5 @@
     <string name="app_name">Recycler View</string>
     <string name="snack_bar_text">Набор удалён</string>
     <string name="snack_bar_undo">UNDO</string>
+    <string name="swipe_to_dismiss_icon_text">Delete</string>
 </resources>

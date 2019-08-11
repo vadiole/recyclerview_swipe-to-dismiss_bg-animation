@@ -1,5 +1,6 @@
 package c.vadiole.recyclerview;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -14,11 +15,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
+public class MainActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener{
     RecyclerView recyclerView;
     MyRecyclerViewAdapter adapter;
     View root;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         nabory.add(new Nabor("Имя 2", 111, 444));
         nabory.add(new Nabor("Имя 1", 199, 14));
 
+
+        root = findViewById(R.id.coordinator_layout);
         recyclerView = findViewById(R.id.recyclerview);
 
         adapter = new MyRecyclerViewAdapter(this, nabory, root );
@@ -55,7 +57,9 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         Objects.requireNonNull(recyclerView.getItemAnimator()).setAddDuration(0);
 
 
+
         ItemTouchHelper.Callback callback = new SwipeToDeleteCallback(adapter);
+
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
     }
@@ -63,11 +67,6 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-    }
-
-    private void setUpRecyclerView() {
-
-
     }
 }
 

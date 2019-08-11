@@ -10,9 +10,9 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    card_view:cardElevation="@dimen/mtrl_card_elevation"
     card_view:cardBackgroundColor="#fff"
-    card_view:cardCornerRadius="@dimen/mtrl_card_corner_radius">
+    card_view:cardCornerRadius="@dimen/mtrl_card_corner_radius"
+    card_view:cardElevation="@dimen/mtrl_card_elevation">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,7 +60,7 @@
             android:layout_marginTop="20dp"
             android:text="5 персон"
             card_view:layout_constraintStart_toEndOf="@+id/iconPerson"
-            card_view:layout_constraintTop_toBotztomOf="@+id/nameTextView" />
+            card_view:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 
         <TextView
             android:id="@+id/pricePerPersonTextView"
